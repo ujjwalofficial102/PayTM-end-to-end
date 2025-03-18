@@ -2,7 +2,7 @@ import { JWT_SECRET } from "./config";
 
 const jwt = require("jsonwebtoken");
 
-export function authMiddleware(req, res, next) {
+const authMiddleware = (req, res, next) => {
   const tokenPayload = req.headers?.authorization;
   if (!tokenPayload) {
     return res.status(401).json({
@@ -23,4 +23,8 @@ export function authMiddleware(req, res, next) {
   } catch (err) {
     return res.status(403).json({ error: "Invalid or expired token" });
   }
-}
+};
+
+module.exports = {
+  authMiddleware,
+};
