@@ -12,7 +12,14 @@ const checkUser = zod.object({
   password: zod.string().min(6),
 });
 
+const updateUser = zod.object({
+  firstname: zod.string().optional(),
+  lastname: zod.string().optional(),
+  password: zod.string().min(6).optional(),
+});
+
 module.exports = {
   createUser,
   checkUser,
+  updateUser,
 };

@@ -1,4 +1,4 @@
-import { JWT_SECRET } from "./config";
+const { JWT_SECRET } = require("./config");
 
 const jwt = require("jsonwebtoken");
 

@@ -1,8 +1,9 @@
 const express = require("express");
-const { createUser, checkUser } = require("./types");
+const { createUser, checkUser, updateUser } = require("./types");
 const { User } = require("../db");
 const { JWT_SECRET } = require("../config");
 const jwt = require("jsonwebtoken");
+const { authMiddleware } = require("../middleware");
 
 const router = express.Router();
 
@@ -40,6 +41,7 @@ router.post("/signup", async (req, res) => {
     token: token,
   });
 });
+
 router.post("/signin", async (req, res) => {
   const createPayload = req.body;
   const parsedPayload = checkUser.safeParse(createPayload);
@@ -74,6 +76,49 @@ router.post("/signin", async (req, res) => {
   );
   res.json({
     token: token,
+  });
+});
+
+router.put("/update", authMiddleware, async (req, res) => {
+  const createPayload = req.body;
+  const parsedPayload = updateUser.safeParse(createPayload);
+  if (!parsedPayload.success) {
+    return res.status(403).json({
+      message: "Error while updating information",
+    });
+  }
+
+  await User.updateOne({ _id: req.userId }, { $set: parsedPayload.data });
+  res.json({
+    message: "Updated Successfully",
+  });
+});
+
+router.get("/bulk", async (req, res) => {
+  const filter = req.query.filter || "";
+
+  const users = await User.find({
+    $or: [
+      {
+        firstName: {
+          $regex: filter,
+        },
+      },
+      {
+        lastName: {
+          $regex: filter,
+        },
+      },
+    ],
+  });
+
+  res.json({
+    user: users.map((user) => ({
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      _id: user._id,
+    })),
   });
 });
 
