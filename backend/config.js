@@ -1,3 +1,3 @@
 module.exports = {
-  JWT_SECRET: "ujjwal102",
+  JWT_SECRET: "something123",
 };

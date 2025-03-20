@@ -73,6 +73,7 @@ router.post("/signin", async (req, res) => {
     res.status(411).json({
       msg: "Incorrect Password",
     });
+    return;
   }
 
   const token = jwt.sign(
@@ -82,6 +83,7 @@ router.post("/signin", async (req, res) => {
     JWT_SECRET
   );
   res.json({
+    message: `${createPayload.username} signed in`,
     token: token,
   });
 });

@@ -2,8 +2,8 @@ const zod = require("zod");
 
 const createUser = zod.object({
   username: zod.string().email(),
-  firstname: zod.string(),
-  lastname: zod.string(),
+  firstName: zod.string(),
+  lastName: zod.string(),
   password: zod.string().min(6),
 });
 
@@ -13,8 +13,8 @@ const checkUser = zod.object({
 });
 
 const updateUser = zod.object({
-  firstname: zod.string().optional(),
-  lastname: zod.string().optional(),
+  firstName: zod.string().optional(),
+  lastName: zod.string().optional(),
   password: zod.string().min(6).optional(),
 });
 
