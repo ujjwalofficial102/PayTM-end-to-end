@@ -25,6 +25,11 @@ router.post("/transfer", authMiddleware, async (req, res) => {
   const account = await Account.findOne({ userId: req.userId }).session(
     session
   );
+  if (amount <= 0 || isNaN(amount) || !amount) {
+    await session.abortTransaction();
+    session.endSession();
+    return res.status(400).json({ message: "Invalid Amount" });
+  }
   if (!account || amount > account.balance) {
     await session.abortTransaction();
     session.endSession();
@@ -41,12 +46,12 @@ router.post("/transfer", authMiddleware, async (req, res) => {
   await Account.updateOne(
     { userId: req.userId },
     { $inc: { balance: -amount } },
-    { session }
+    { session: session }
   );
   await Account.updateOne(
     { userId: to },
     { $inc: { balance: amount } },
-    { session }
+    { session: session }
   );
 
   await session.commitTransaction();
