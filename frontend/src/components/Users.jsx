@@ -14,7 +14,7 @@ export const Users = () => {
     <div className="py-6">
       <div className="font-semibold text-lg">Users</div>
       <input
-        className="outline w-full outline-slate-200 rounded px-2 py-1 my-2"
+        className="outline w-full outline-slate-200 rounded px-2 py-1 my-2 outline-none focus:border-blue-800 focus:ring-1 focus:ring-blue-400"
         type="text"
         placeholder="Search users..."
       />
