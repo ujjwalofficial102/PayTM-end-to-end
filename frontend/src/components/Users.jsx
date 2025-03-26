@@ -50,7 +50,7 @@ function User({ user }) {
         <Button
           onClick={() => {
             navigate(
-              `/send?id=${user._id}&name=${user.firstName} ${user.lastName}`
+              `/send?id=${user._id}&name=${user.firstName}+${user.lastName}`
             );
           }}
           label={"Send Money"}

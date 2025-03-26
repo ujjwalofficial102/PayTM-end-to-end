@@ -5,6 +5,7 @@ export const Appbar = ({ userid }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   useEffect(() => {
+    if (!userid) return;
     axios
       .get("http://localhost:3001/api/v1/user/self?id=" + userid)
       .then((response) => {
@@ -20,7 +21,7 @@ export const Appbar = ({ userid }) => {
           Hello, {firstName} {lastName}
         </div>
         <div className="bg-slate-200 rounded-full h-12 w-12 flex justify-center items-center text-xl font-medium">
-          {firstName[0].toUpperCase()}
+          {firstName ? firstName[0].toUpperCase() : ""}
         </div>
       </div>
     </div>
