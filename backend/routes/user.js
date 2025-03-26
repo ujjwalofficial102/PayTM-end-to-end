@@ -4,6 +4,7 @@ const { User, Account } = require("../db");
 const { JWT_SECRET } = require("../config");
 const jwt = require("jsonwebtoken");
 const { authMiddleware } = require("../middleware");
+const mongoose = require("mongoose");
 
 const router = express.Router();
 
@@ -128,6 +129,31 @@ router.get("/bulk", async (req, res) => {
       lastName: user.lastName,
       _id: user._id,
     })),
+  });
+});
+router.get("/self", async (req, res) => {
+  const id = req.query.id;
+
+  if (!id) {
+    return res.status(400).json({ error: "User ID is required" });
+  }
+  if (typeof id !== "string") {
+    return res.status(400).json({ error: "Invalid ID format" });
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid MongoDB ObjectId" });
+  }
+
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  res.json({
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
   });
 });
 
