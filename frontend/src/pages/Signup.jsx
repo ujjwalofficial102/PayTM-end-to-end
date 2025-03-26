@@ -7,7 +7,7 @@ import { SubHeading } from "../components/SubHeading";
 export const Signup = () => {
   return (
     <div className="bg-slate-300 h-screen flex justify-center items-center">
-      <div className="bg-white rounded-lg text-center w-100 py-4 px-6">
+      <div className="bg-white rounded-lg text-center w-100 py-4 px-6 shadow-lg">
         <Heading label={"Sign up"}></Heading>
         <SubHeading
           label={"Enter your information to create an account"}
