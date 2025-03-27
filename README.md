@@ -35,7 +35,7 @@ npm install
 
 ### 3. Setup Environment Variables
 
-- Update the `db.js` file with your own MongoDB connection string.
+- Update the `/backend/db.js` file with your own MongoDB connection string.
 
 ### 4. Start the Development Servers
 
@@ -55,7 +55,7 @@ npm run dev
 
 ## Important Note
 
-Make sure to update the `db.js` file in the backend with your own MongoDB connection string before running the project.
+Make sure to update the `/backend/db.js` file in the backend with your own MongoDB connection string before running the project.
 
 ## Features
 
